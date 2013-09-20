@@ -1,7 +1,6 @@
 var flatiron = require('flatiron')
   , app = flatiron.app
-  , webshot = require('webshot')
-  , url = require('url');
+  , webshot = require('webshot');
 
 app.use(flatiron.plugins.http);
 
@@ -16,7 +15,9 @@ app.router.get('/', function(request, response) {
 	 }
   };
 
-  webshot(self.req.query.url, options, function(err, renderStream) {
+  var url = self.req.query.url || "http://give4sure.com";
+
+  webshot(url, options, function(err, renderStream) {
     renderStream.pipe(self.res);
   });
 });
